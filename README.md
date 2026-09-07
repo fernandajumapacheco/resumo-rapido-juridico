@@ -2,6 +2,16 @@
 
 Aplicativo gratuito e local para extrair texto de PDFs e organizar informações jurídicas em relatórios auxiliares. O documento permanece no computador do usuário: não há conta, nuvem, chave de API, telemetria ou envio para serviços externos.
 
+[![Versão](https://img.shields.io/github/v/release/fernandajumapacheco/resumo-rapido-juridico?label=vers%C3%A3o)](https://github.com/fernandajumapacheco/resumo-rapido-juridico/releases/latest)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-a9845a)](#requisitos)
+[![Processamento](https://img.shields.io/badge/processamento-local-3f6a50)](#privacidade-por-arquitetura)
+
+![Interface do Resumo Rápido Jurídico](docs/assets/interface-v1.1.1.png)
+
+## Download
+
+Baixe a [versão mais recente](https://github.com/fernandajumapacheco/resumo-rapido-juridico/releases/latest) e escolha **Source code (zip)** em **Assets**.
+
 > **Uso responsável:** o relatório é uma ferramenta de apoio. Confira nomes, datas, valores, prazos e conclusões diretamente nos autos.
 
 Antes da primeira análise, a interface pede a confirmação de leitura do aviso de privacidade e uso responsável. Isso registra ciência das condições de uso; não é uma tentativa de obter “consentimento LGPD” em nome de quem controla os documentos.
@@ -16,6 +26,7 @@ Leia os [Termos de uso, privacidade e LGPD](docs/TERMOS_DE_USO.md).
 - Produz **Resumo Rápido** ou **Relatório Jurídico Completo**.
 - Mostra o resultado no navegador e gera arquivos Markdown, Word e PDF.
 - Evita sobrescrever documentos que tenham o mesmo nome.
+- Escolhe automaticamente uma porta local livre entre `8787` e `8799`.
 
 ## Privacidade por arquitetura
 
@@ -132,6 +143,7 @@ Nenhum documento pessoal é necessário para testar o projeto.
 resumo-rapido-juridico/
 ├── analise_juridica.py       motor determinístico
 ├── app.py                    servidor Python local
+├── iniciar.py                escolhe uma porta livre e abre o navegador
 ├── exportar_relatorio.py     criação de DOCX e PDF
 ├── INICIAR_MAC.command       abertura assistida no macOS
 ├── INICIAR_WINDOWS.bat       abertura assistida no Windows

@@ -16,7 +16,17 @@ def carregar_app(tmp_path: Path):
 def test_saude_nao_expoe_caminhos(tmp_path):
     modulo = carregar_app(tmp_path)
     resposta = modulo.saude()
-    assert resposta == {"ok": True, "motor": "Python", "versao": "1.1.0"}
+    assert resposta == {"ok": True, "motor": "Python", "versao": "1.1.1"}
+
+
+def test_inicializador_escolhe_outra_porta_quando_a_primeira_esta_ocupada():
+    import socket
+    from iniciar import escolher_porta
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as ocupada:
+        ocupada.bind(("127.0.0.1", 0))
+        porta = ocupada.getsockname()[1]
+        assert escolher_porta(porta, porta + 1) == porta + 1
 
 
 def test_upload_repetido_recebe_nome_unico(tmp_path):

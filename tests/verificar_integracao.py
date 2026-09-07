@@ -53,7 +53,7 @@ def main() -> None:
 
         import app
 
-        assert app.saude() == {"ok": True, "motor": "Python", "versao": "1.1.0"}
+        assert app.saude() == {"ok": True, "motor": "Python", "versao": "1.1.1"}
         existente = app.ENTRADA / "repetido.pdf"
         existente.write_bytes(b"teste")
         novo = app.destino_seguro(app.ENTRADA, existente.name)
