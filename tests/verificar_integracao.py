@@ -71,7 +71,17 @@ def main() -> None:
                 arquivo = base.with_suffix(extensao)
                 assert arquivo.is_file() and arquivo.stat().st_size > 0
 
-        print("OK: rápido, completo, nomes seguros, saúde privada e três formatos")
+        original_which = app.shutil.which
+        app.shutil.which = lambda comando: None if comando == "pdftotext" else original_which(comando)
+        try:
+            trabalho = app.novo_trabalho(pdf, ".pdf", modo="rapido")
+            resultado = aguardar(app, trabalho["id"])
+            assert resultado["estado"] == "concluido", resultado
+            assert resultado["metodo"] == "Leitor Python (PyMuPDF)"
+        finally:
+            app.shutil.which = original_which
+
+        print("OK: rápido, completo, leitor Python, nomes seguros, saúde privada e três formatos")
 
 
 if __name__ == "__main__":

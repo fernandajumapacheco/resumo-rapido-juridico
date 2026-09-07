@@ -90,12 +90,32 @@ def extrair_pdf(origem: Path, trabalho_id: str) -> tuple[str, str]:
 
     atualizar(
         trabalho_id,
-        etapa="PDF escaneado: usando OCR",
+        etapa="Tentando o leitor Python",
         progresso=24,
+        detalhe="Procurando texto incorporado ao PDF antes de usar OCR.",
+    )
+    try:
+        import pymupdf as fitz
+    except ImportError as erro:
+        raise RuntimeError("Instale as dependências principais descritas no guia.") from erro
+
+    paginas_python: list[str] = []
+    with fitz.open(origem) as documento:
+        for numero, pagina in enumerate(documento, start=1):
+            conteudo = pagina.get_text("text").strip()
+            if conteudo:
+                paginas_python.append(f"## Página {numero}\n\n{conteudo}")
+    texto_python = "\n\n".join(paginas_python)
+    if len("".join(texto_python.split())) >= 80:
+        return texto_python, "Leitor Python (PyMuPDF)"
+
+    atualizar(
+        trabalho_id,
+        etapa="PDF escaneado: usando OCR",
+        progresso=28,
         detalhe="O arquivo parece ser uma imagem. O OCR será mais demorado.",
     )
     try:
-        import fitz
         from rapidocr import RapidOCR
     except ImportError as erro:
         raise RuntimeError(
@@ -109,7 +129,7 @@ def extrair_pdf(origem: Path, trabalho_id: str) -> tuple[str, str]:
         for numero, pagina in enumerate(documento, start=1):
             atualizar(
                 trabalho_id,
-                progresso=min(52, 24 + int(28 * numero / max(total, 1))),
+                progresso=min(52, 28 + int(24 * numero / max(total, 1))),
                 detalhe=f"OCR lendo página {numero} de {total}.",
             )
             imagem = pagina.get_pixmap(dpi=144, alpha=False).tobytes("png")

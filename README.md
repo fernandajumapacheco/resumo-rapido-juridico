@@ -7,7 +7,7 @@ Aplicativo gratuito e local para extrair texto de PDFs e organizar informações
 ## O que o programa faz
 
 - Aceita arquivos PDF, Markdown e MARKDOWN.
-- Extrai rapidamente o texto existente no PDF com `pdftotext`.
+- Extrai o texto com Python e, quando disponível, usa `pdftotext` como leitor preferencial.
 - Pode usar OCR local opcional em PDFs escaneados.
 - Produz **Resumo Rápido** ou **Relatório Jurídico Completo**.
 - Mostra o resultado no navegador e gera arquivos Markdown, Word e PDF.
@@ -31,30 +31,45 @@ Essas pastas não são incluídas vazias no GitHub por segurança: isso reduz o 
 ## Requisitos
 
 - Python 3.11 ou superior.
-- `pdftotext`, fornecido pelo pacote Poppler, para PDFs que já contêm texto.
 - macOS, Linux ou Windows com um terminal Python disponível.
 
 O OCR é opcional e possui dependências separadas porque ocupa mais espaço.
 
-## Instalação no macOS
+## Forma mais simples de usar
+
+1. Baixe o arquivo ZIP da versão mais recente na página de releases.
+2. Extraia o ZIP para uma pasta comum do computador.
+3. No macOS, abra `INICIAR_MAC.command`.
+4. No Windows, abra `INICIAR_WINDOWS.bat`.
+
+Na primeira abertura, o inicializador cria `.venv` e instala as dependências Python. Essa instalação inicial precisa de internet; depois disso, o processamento dos documentos é local.
+
+## Instalação manual no macOS
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+O Poppler é opcional, mas pode melhorar a extração de alguns PDFs:
 
 ```bash
 brew install poppler
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
 ```
 
-## Instalação no Linux Debian ou Ubuntu
+## Instalação manual no Linux Debian ou Ubuntu
 
 ```bash
-sudo apt-get install poppler-utils python3-venv
+sudo apt-get install python3-venv
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
-## Instalação no Windows
+O pacote `poppler-utils` é opcional.
 
-Instale Python 3.11 ou superior e uma distribuição do Poppler que forneça `pdftotext`. Depois execute no PowerShell:
+## Instalação manual no Windows
+
+Instale Python 3.11 ou superior. Depois execute no PowerShell:
 
 ```powershell
 py -m venv .venv
@@ -110,6 +125,8 @@ resumo-rapido-juridico/
 ├── analise_juridica.py       motor determinístico
 ├── app.py                    servidor Python local
 ├── exportar_relatorio.py     criação de DOCX e PDF
+├── INICIAR_MAC.command       abertura assistida no macOS
+├── INICIAR_WINDOWS.bat       abertura assistida no Windows
 ├── web/index.html            interface local
 ├── exemplos/                 documento e resultados fictícios
 ├── scripts/                  geração reproduzível dos exemplos
