@@ -4,6 +4,10 @@ Aplicativo gratuito e local para extrair texto de PDFs e organizar informações
 
 > **Uso responsável:** o relatório é uma ferramenta de apoio. Confira nomes, datas, valores, prazos e conclusões diretamente nos autos.
 
+Antes da primeira análise, a interface pede a confirmação de leitura do aviso de privacidade e uso responsável. Isso registra ciência das condições de uso; não é uma tentativa de obter “consentimento LGPD” em nome de quem controla os documentos.
+
+Leia os [Termos de uso, privacidade e LGPD](docs/TERMOS_DE_USO.md).
+
 ## O que o programa faz
 
 - Aceita arquivos PDF, Markdown e MARKDOWN.
@@ -27,6 +31,10 @@ dados/
 ```
 
 Essas pastas não são incluídas vazias no GitHub por segurança: isso reduz o risco de adicionar documentos jurídicos reais ao repositório por engano.
+
+### LGPD e responsabilidade de quem utiliza
+
+O processamento local reduz a circulação de dados, mas não garante sozinho conformidade com a LGPD. Quem utiliza o programa deve avaliar finalidade, base legal, necessidade, controle de acesso, retenção, descarte e direitos dos titulares. Consulte a [LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm) e o [guia de segurança da ANPD](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte).
 
 ## Requisitos
 
@@ -128,6 +136,7 @@ resumo-rapido-juridico/
 ├── INICIAR_MAC.command       abertura assistida no macOS
 ├── INICIAR_WINDOWS.bat       abertura assistida no Windows
 ├── web/index.html            interface local
+├── web/termos.html           aviso exibido pela interface
 ├── exemplos/                 documento e resultados fictícios
 ├── scripts/                  geração reproduzível dos exemplos
 ├── tests/                    verificações automatizadas
@@ -144,6 +153,8 @@ resumo-rapido-juridico/
 - Revise o resultado antes de utilizá-lo em qualquer atividade jurídica.
 
 Consulte [SECURITY.md](SECURITY.md) para relatar uma vulnerabilidade sem expor dados sensíveis.
+
+Consulte também [docs/TERMOS_DE_USO.md](docs/TERMOS_DE_USO.md) antes de utilizar documentos reais.
 
 ## Limitações conhecidas
 

@@ -16,7 +16,7 @@ def carregar_app(tmp_path: Path):
 def test_saude_nao_expoe_caminhos(tmp_path):
     modulo = carregar_app(tmp_path)
     resposta = modulo.saude()
-    assert resposta == {"ok": True, "motor": "Python", "versao": "1.0.0"}
+    assert resposta == {"ok": True, "motor": "Python", "versao": "1.1.0"}
 
 
 def test_upload_repetido_recebe_nome_unico(tmp_path):
