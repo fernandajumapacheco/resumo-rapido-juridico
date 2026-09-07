@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Leia PDFs e produza resumos jurídicos com Python, mantendo os documentos no seu computador.">
+  <title>Resumo Rápido Jurídico</title>
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#f8f7ff;background:#0d0916;--roxo:#8157ff;--verde:#54e5a4;--rosa:#ffb9c8}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;background:radial-gradient(circle at top,#5630bd,#0d0916 62%)}main{width:min(920px,100%);margin:auto;padding:clamp(22px,5vw,42px);border:1px solid #ffffff24;border-radius:28px;background:#171022f2;box-shadow:0 30px 90px #0009}h1{font-size:clamp(38px,7vw,68px);line-height:1;margin:.15em 0}.subtitulo{font-size:1.1rem;color:#ddd2f4;max-width:700px}.privacidade{padding:14px;border-left:4px solid var(--verde);background:#54e5a40c}.caixa,.painel{display:grid;gap:16px;margin:26px 0;padding:26px;border-radius:20px;background:#ffffff09}.caixa{border:2px dashed #a98aff;text-align:center}button{padding:14px 18px;border:0;border-radius:14px;background:var(--roxo);color:#fff;font-weight:800;cursor:pointer}button:disabled{opacity:.5}.barra{height:18px;border-radius:99px;background:#0a0710;overflow:hidden}.barra>div{width:0;height:100%;background:linear-gradient(90deg,var(--roxo),#52dbff);transition:width .5s}.linha{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.caminho{padding:12px;border-radius:10px;background:#0a0710;color:#ded3f5;overflow-wrap:anywhere}.resultado{max-height:700px;overflow:auto;padding:22px;border-radius:16px;background:#0a0710}.resultado:empty{display:none}.resultado h1,.resultado h2,.resultado h3{font-size:1.25rem;margin-top:1.4em}.nota{font-size:.92rem;color:#c9bddc}.erro{color:#ff9aac}.ok{color:var(--verde);font-weight:800}.oculto{display:none}.lista{display:grid;gap:8px}.item{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:#ffffff08}.acoes{display:flex;gap:8px;flex-wrap:wrap}.item button{padding:8px 12px}.x{background:#ffffff18;color:#ddd}.etapas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.etapas div{padding:13px;border-radius:14px;background:#0a0710;text-align:center}.modos{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}.modo{display:block;padding:16px;border:1px solid #ffffff2e;border-radius:14px;background:#0a0710;cursor:pointer}.modo:has(input:checked){border:2px solid var(--verde);background:#54e5a40d}.modo input{margin-right:8px}.modo small{display:block;margin:8px 0 0 25px;color:#c9bddc}.downloads a{display:inline-block;margin:4px;padding:10px 14px;border-radius:12px;background:#ffffff12;color:#fff;text-decoration:none;font-weight:700}@media(max-width:650px){.etapas,.modos{grid-template-columns:1fr}.item{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body><main>
+  <p>PRIVACIDADE • PDF → MARKDOWN → ANÁLISE EM PYTHON</p>
+  <h1>Resumo Rápido<br>Jurídico</h1>
+  <p class="subtitulo">Transforme documentos extensos em texto pesquisável, resumo objetivo ou relatório detalhado, sem depender de internet ou chave de API.</p>
+  <p class="privacidade"><strong>Seus documentos ficam neste computador.</strong> A análise principal é feita por Python. Sempre confira o resultado no documento original.</p>
+  <div class="etapas"><div>① Escolher arquivo</div><div>② Extrair texto</div><div>③ Organizar informações</div></div>
+
+  <form id="form" class="caixa">
+    <strong>Escolha ou arraste um PDF ou Markdown</strong>
+    <input id="arquivo" name="arquivo" type="file" accept="application/pdf,.pdf,.md,.markdown,text/markdown,text/plain" required>
+    <div class="modos" role="radiogroup" aria-label="Tipo de relatório">
+      <label class="modo"><input type="radio" name="modo" value="rapido" checked><strong>Resumo Rápido</strong><small>Identificação, resumo do caso, partes, pedidos, decisões e pendências. Normalmente termina em poucos segundos após a leitura do PDF.</small></label>
+      <label class="modo"><input type="radio" name="modo" value="completo"><strong>Relatório Jurídico Completo</strong><small>Inclui linha do tempo, provas, controvérsias, recursos, valores, leis e pontos para revisão. Faz uma busca mais extensa e pode demorar mais.</small></label>
+    </div>
+    <button id="iniciar">Converter e analisar</button>
+    <span class="nota">PDF com texto costuma levar segundos. PDF escaneado exige OCR e demora mais. Markdown pula a conversão.</span>
+  </form>
+
+  <section id="andamento" class="painel oculto" aria-live="polite">
+    <div class="linha"><strong id="etapa">Preparando…</strong><span id="tempo">00:00</span></div>
+    <div class="barra" role="progressbar"><div id="progresso"></div></div>
+    <div class="linha"><span id="percentual">0%</span><span id="detalhe"></span></div>
+    <div><span id="marcaMd">○ Texto aguardando</span> &nbsp; <span id="marcaResumo">○ Resumo aguardando</span></div>
+    <div><small>Arquivo recebido:</small><div id="origem" class="caminho"></div></div>
+    <div id="linhaMd" class="oculto"><small>Markdown salvo em:</small><div id="caminhoMd" class="caminho"></div></div>
+    <div id="linhaAnalise" class="oculto"><small>Resumo salvo em:</small><div id="caminhoAnalise" class="caminho"></div></div>
+  </section>
+
+  <article id="resultado" class="resultado"></article>
+  <nav id="downloads" class="downloads oculto" aria-label="Downloads do resultado"></nav>
+  <section class="painel">
+    <div class="linha"><strong>Markdowns disponíveis para resumir</strong><button id="atualizar" type="button">Atualizar lista</button></div>
+    <p class="nota">O × apenas tira um item desta lista no navegador; ele não apaga o arquivo.</p>
+    <div id="lista" class="lista"></div>
+  </section>
+</main>
+<script>
+const $=s=>document.querySelector(s),form=$('#form'),arquivo=$('#arquivo'),botao=$('#iniciar'),andamento=$('#andamento'),resultado=$('#resultado');let relogio;
+function duracao(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function mostrar(d){andamento.classList.remove('oculto');$('#etapa').textContent=d.etapa;$('#detalhe').textContent=d.detalhe||'';$('#percentual').textContent=d.progresso+'%';$('#progresso').style.width=d.progresso+'%';$('#origem').textContent=d.nome_arquivo||'';$('#marcaMd').textContent=d.markdown_concluido?'✓ Markdown concluído':'○ Markdown aguardando';$('#marcaMd').className=d.markdown_concluido?'ok':'';$('#marcaResumo').textContent=d.resumo_concluido?'✓ Relatório concluído':'○ Relatório aguardando';$('#marcaResumo').className=d.resumo_concluido?'ok':'';if(d.markdown_nome){$('#linhaMd').classList.remove('oculto');$('#caminhoMd').textContent=d.markdown_nome}if(d.arquivo_analise_nome){$('#linhaAnalise').classList.remove('oculto');$('#caminhoAnalise').textContent=d.arquivo_analise_nome}}
+async function acompanhar(id,inicio){clearInterval(relogio);relogio=setInterval(()=>$('#tempo').textContent=duracao(Math.round((Date.now()-inicio)/1000)),1000);while(true){await new Promise(r=>setTimeout(r,500));const r=await fetch('/trabalhos/'+id,{cache:'no-store'}),d=await r.json();mostrar(d);if(d.estado==='concluido'){clearInterval(relogio);$('#tempo').textContent=duracao(d.segundos||0);resultado.innerHTML=d.analise_html;const nav=$('#downloads');nav.replaceChildren();for(const [url,rotulo] of [[d.download_docx,'Baixar Word (DOCX)'],[d.download_pdf,'Baixar PDF'],[d.download_md,'Baixar Markdown']]){if(url){const a=document.createElement('a');a.href=url;a.textContent=rotulo;nav.append(a)}}if(nav.children.length)nav.classList.remove('oculto');botao.disabled=false;botao.textContent='Converter e analisar';carregarLista();return}if(d.estado==='erro'){clearInterval(relogio);$('#etapa').className='erro';resultado.textContent=d.erro;botao.disabled=false;botao.textContent='Tentar novamente';return}}}
+function preparar(){resultado.replaceChildren();$('#downloads').classList.add('oculto');$('#etapa').className='';$('#linhaMd').classList.add('oculto');$('#linhaAnalise').classList.add('oculto');botao.disabled=true;botao.textContent='Trabalhando…';return Date.now()}
+function falha(e){andamento.classList.remove('oculto');$('#etapa').textContent='Não foi possível iniciar';$('#etapa').className='erro';$('#detalhe').textContent=e.message;botao.disabled=false;botao.textContent='Tentar novamente'}
+function modoAtual(){return document.querySelector('input[name="modo"]:checked').value}
+async function enviarArquivo(f){const inicio=preparar();try{const dados=new FormData();dados.append('arquivo',f);dados.append('modo',modoAtual());const r=await fetch('/trabalhos',{method:'POST',body:dados}),d=await r.json();if(!r.ok)throw new Error(d.detail||'Falha ao iniciar');mostrar(d);acompanhar(d.id,inicio)}catch(e){falha(e)}}
+async function resumirCaminho(nome){const inicio=preparar();try{const r=await fetch('/resumir-existente?nome='+encodeURIComponent(nome)+'&modo='+modoAtual(),{method:'POST'}),d=await r.json();if(!r.ok)throw new Error(d.detail||'Falha ao iniciar');mostrar(d);acompanhar(d.id,inicio)}catch(e){falha(e)}}
+form.onsubmit=e=>{e.preventDefault();if(arquivo.files[0])enviarArquivo(arquivo.files[0])};
+async function carregarLista(){try{const ocultos=JSON.parse(localStorage.getItem('resumoLocalOcultos')||'[]');const r=await fetch('/arquivos',{cache:'no-store'}),d=await r.json(),lista=$('#lista');lista.replaceChildren();const visiveis=d.markdowns.filter(a=>!ocultos.includes(a.id));if(!visiveis.length){lista.textContent='Nenhum Markdown visível na lista.';return}for(const arq of visiveis){const linha=document.createElement('div');linha.className='item';const nome=document.createElement('span');nome.innerHTML='<span class="ok">✓ Texto disponível</span><br>';nome.append(document.createTextNode(arq.nome+(arq.resumo_pronto?' — ✓ resumo pronto':'')));const acoes=document.createElement('div');acoes.className='acoes';const b=document.createElement('button');b.type='button';b.textContent=arq.resumo_pronto?'Refazer relatório':'Gerar relatório';b.onclick=()=>resumirCaminho(arq.id);const x=document.createElement('button');x.type='button';x.className='x';x.textContent='×';x.title='Tirar da lista sem apagar o arquivo';x.onclick=()=>{ocultos.push(arq.id);localStorage.setItem('resumoLocalOcultos',JSON.stringify(ocultos));linha.remove()};acoes.append(b,x);linha.append(nome,acoes);lista.append(linha)}}catch(e){$('#lista').textContent='Não foi possível ler a pasta: '+e.message}}
+$('#atualizar').onclick=carregarLista;carregarLista();
+</script></body></html>
