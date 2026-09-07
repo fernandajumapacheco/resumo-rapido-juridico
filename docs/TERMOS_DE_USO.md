@@ -14,6 +14,12 @@ Documentos jurídicos podem conter dados pessoais, dados pessoais sensíveis, se
 
 Quem utiliza o aplicativo deve avaliar finalidade e base legal, limitar o uso ao necessário, controlar acessos, adotar medidas de segurança e respeitar direitos dos titulares, deveres profissionais e regras da instituição em que atua.
 
+## Anonimização dos relatórios
+
+Por segurança, os relatórios exportados devem ocultar números de processo com `xxx`, abreviar nomes de pessoas por iniciais sempre que possível e não exibir CPF, telefone, e-mail, endereço, CEP ou outros dados pessoais diretos.
+
+A anonimização automática é uma proteção auxiliar e pode falhar. Antes de compartilhar qualquer relatório, revise o arquivo e remova manualmente informações pessoais, sensíveis, sigilosas ou desnecessárias.
+
 ## Limitações e responsabilidade
 
 Os relatórios são auxiliares e podem conter erros ou omissões. Confira nomes, datas, valores, prazos e conclusões no documento original. O aplicativo não substitui análise jurídica profissional. Evite computadores compartilhados e sincronização da pasta de dados com nuvem sem avaliação prévia.

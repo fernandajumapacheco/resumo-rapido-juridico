@@ -24,6 +24,7 @@ Leia os [Termos de uso, privacidade e LGPD](docs/TERMOS_DE_USO.md).
 - Extrai o texto com Python e, quando disponível, usa `pdftotext` como leitor preferencial.
 - Pode usar OCR local opcional em PDFs escaneados.
 - Produz **Resumo Rápido** ou **Relatório Jurídico Completo**.
+- Mascara o número do processo como `xxx` e tenta abreviar nomes de pessoas por iniciais nos relatórios exportados.
 - Mostra o resultado no navegador e gera arquivos Markdown, Word e PDF.
 - Evita sobrescrever documentos que tenham o mesmo nome.
 - Escolhe automaticamente uma porta local livre entre `8787` e `8799`.
@@ -46,6 +47,12 @@ Essas pastas não são incluídas vazias no GitHub por segurança: isso reduz o 
 ### LGPD e responsabilidade de quem utiliza
 
 O processamento local reduz a circulação de dados, mas não garante sozinho conformidade com a LGPD. Quem utiliza o programa deve avaliar finalidade, base legal, necessidade, controle de acesso, retenção, descarte e direitos dos titulares. Consulte a [LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm) e o [guia de segurança da ANPD](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte).
+
+### Anonimização dos relatórios
+
+Por segurança, os relatórios exportados ocultam números de processo com `xxx`, tentam abreviar nomes de pessoas por iniciais e mascaram padrões comuns de CPF, telefone, e-mail, CEP e endereço.
+
+A anonimização automática é apenas uma proteção auxiliar. Antes de compartilhar qualquer relatório, revise o arquivo e remova manualmente dados pessoais, dados sensíveis, segredo de justiça ou informações desnecessárias.
 
 ## Requisitos
 
@@ -153,6 +160,7 @@ resumo-rapido-juridico/
 ├── scripts/                  geração reproduzível dos exemplos
 ├── tests/                    verificações automatizadas
 ├── docs/                     interface e privacidade
+├── docs/BASE_PECAS_JURIDICAS.md base informativa de peças e documentos
 ├── requirements.txt          dependências principais
 └── requirements-ocr.txt      dependências opcionais de OCR
 ```
